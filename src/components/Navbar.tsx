@@ -102,7 +102,7 @@ const Navbar: React.FC = () => {
   return (
     <nav 
       className={`fixed w-full z-50 transition-all duration-500 ${
-        isScrolled 
+        isScrolled || isOpen
           ? 'glass dark:glass-dark backdrop-blur-lg py-2 shadow-lg' 
           : 'bg-transparent py-4'
       }`}
@@ -203,41 +203,43 @@ const Navbar: React.FC = () => {
       
       {/* Mobile Menu */}
       <div 
-        className={`md:hidden absolute w-full glass dark:glass-dark backdrop-blur-lg shadow-lg transition-all duration-500 ease-in-out ${
+        className={`md:hidden absolute w-full bg-white dark:bg-gray-900 glass dark:glass-dark backdrop-blur-lg shadow-lg transition-all duration-500 ease-in-out ${
           isOpen 
-            ? 'max-h-[500px] opacity-100' 
+            ? 'max-h-[500px] opacity-100 border-b border-gray-200 dark:border-gray-700' 
             : 'max-h-0 opacity-0 pointer-events-none'
         } overflow-hidden`}
       >
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex flex-col space-y-4">
-            {navItems.map((item, index) => {
-              const isActive = activeSection === item.href.replace('#', '');
-              return (
-                <Link 
-                  key={item.name} 
-                  href={item.href}
-                  className={`relative font-medium py-2 pl-2 border-l-2 transition-all duration-300 animate-slide-in-right ${
-                    isActive
-                      ? 'border-primary-500 text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 rounded-r-lg'
-                      : 'border-transparent text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:border-primary-500 hover:bg-gray-50 dark:hover:bg-gray-800/50 rounded-r-lg'
-                  }`}
-                  style={{ animationDelay: `${0.1 + index * 0.05}s` }}
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              );
-            })}
-            
-            <Link 
-              href="#contact"
-              className="btn-gradient-animated btn-ripple w-full text-center py-3 text-white font-medium rounded-lg shadow-md animate-slide-in-right"
-              style={{ animationDelay: '0.4s' }}
-              onClick={() => setIsOpen(false)}
-            >
-              Fale Conosco
-            </Link>
+        <div className="bg-white/50 dark:bg-gray-900/50">
+          <div className="container mx-auto px-4 py-4">
+            <div className="flex flex-col space-y-4">
+              {navItems.map((item, index) => {
+                const isActive = activeSection === item.href.replace('#', '');
+                return (
+                  <Link 
+                    key={item.name} 
+                    href={item.href}
+                    className={`relative font-medium py-3 pl-3 border-l-2 transition-all duration-300 animate-slide-in-right ${
+                      isActive
+                        ? 'border-primary-500 text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/30 rounded-r-lg'
+                        : 'border-transparent text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:border-primary-500 hover:bg-gray-100 dark:hover:bg-gray-800/70 rounded-r-lg'
+                    }`}
+                    style={{ animationDelay: `${0.1 + index * 0.05}s` }}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                );
+              })}
+              
+              <Link 
+                href="#contact"
+                className="btn-gradient-animated btn-ripple w-full text-center py-3 text-white font-medium rounded-lg shadow-md animate-slide-in-right"
+                style={{ animationDelay: '0.4s' }}
+                onClick={() => setIsOpen(false)}
+              >
+                Fale Conosco
+              </Link>
+            </div>
           </div>
         </div>
       </div>
