@@ -219,8 +219,8 @@ const Navbar: React.FC = () => {
                   href={item.href}
                   className={`relative font-medium py-2 pl-2 border-l-2 transition-all duration-300 animate-slide-in-right ${
                     isActive
-                      ? 'border-primary-500 text-primary-600 dark:text-primary-400'
-                      : 'border-transparent text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:border-primary-500'
+                      ? 'border-primary-500 text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 rounded-r-lg'
+                      : 'border-transparent text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:border-primary-500 hover:bg-gray-50 dark:hover:bg-gray-800/50 rounded-r-lg'
                   }`}
                   style={{ animationDelay: `${0.1 + index * 0.05}s` }}
                   onClick={() => setIsOpen(false)}
