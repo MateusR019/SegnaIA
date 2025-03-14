@@ -1,0 +1,716 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-50: #f0f9ff;
+  --primary-100: #e0f2fe;
+  --primary-200: #bae6fd;
+  --primary-300: #7dd3fc;
+  --primary-400: #38bdf8;
+  --primary-500: #0ea5e9;
+  --primary-600: #0284c7;
+  --primary-700: #0369a1;
+  --primary-800: #075985;
+  --primary-900: #0c4a6e;
+  --primary-950: #082f49;
+  
+  --secondary-50: #f5f3ff;
+  --secondary-100: #ede9fe;
+  --secondary-200: #ddd6fe;
+  --secondary-300: #c4b5fd;
+  --secondary-400: #a78bfa;
+  --secondary-500: #8b5cf6;
+  --secondary-600: #7c3aed;
+  --secondary-700: #6d28d9;
+  --secondary-800: #5b21b6;
+  --secondary-900: #4c1d95;
+  --secondary-950: #2e1065;
+}
+
+/* Animações fluidas */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes float-medium {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes float-fast {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slide-in-right {
+  from { transform: translateX(50px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes scale-in {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Novas animações */
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0); }
+  50% { box-shadow: 0 0 20px 5px rgba(14, 165, 233, 0.3); }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes ripple {
+  0% { transform: scale(0); opacity: 1; }
+  100% { transform: scale(4); opacity: 0; }
+}
+
+@keyframes text-blur-out {
+  0% { filter: blur(0); }
+  50% { filter: blur(4px); opacity: 0.8; }
+  100% { filter: blur(0); }
+}
+
+@keyframes border-pulse {
+  0%, 100% { border-color: rgba(14, 165, 233, 0.5); }
+  50% { border-color: rgba(139, 92, 246, 0.8); }
+}
+
+@keyframes rotate-3d {
+  0% { transform: perspective(1000px) rotateY(0deg); }
+  100% { transform: perspective(1000px) rotateY(360deg); }
+}
+
+@layer base {
+  html {
+    /* Removendo o comportamento de rolagem suave para evitar rolagem automática */
+    /* scroll-behavior: smooth; */
+  }
+  
+  body {
+    @apply bg-white text-gray-900 dark:bg-gray-900 dark:text-white;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+  
+  /* Melhorias de scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100 dark:bg-gray-800;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gradient-to-b from-primary-500 to-secondary-500 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply from-primary-600 to-secondary-600;
+  }
+}
+
+@layer components {
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section {
+    @apply py-16 md:py-24;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: -100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: all 0.6s;
+  }
+
+  .btn:hover::after {
+    left: 100%;
+  }
+  
+  /* Botão com efeito de ripple */
+  .btn-ripple {
+    @apply relative overflow-hidden;
+  }
+  
+  .btn-ripple::before {
+    content: '';
+    @apply absolute w-5 h-5 rounded-full bg-white opacity-30 scale-0;
+    transform-origin: center;
+    transition: transform 0.6s ease-out;
+  }
+  
+  .btn-ripple:active::before {
+    animation: ripple 0.6s ease-out;
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white focus:ring-primary-500 dark:from-primary-600 dark:to-primary-700 dark:hover:from-primary-500 dark:hover:to-primary-600;
+    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+  }
+
+  .btn-secondary {
+    @apply bg-gradient-to-r from-secondary-600 to-secondary-700 hover:from-secondary-700 hover:to-secondary-800 text-white focus:ring-secondary-500 dark:from-secondary-600 dark:to-secondary-700 dark:hover:from-secondary-500 dark:hover:to-secondary-600;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+  }
+
+  .btn-outline {
+    @apply border border-gray-300 dark:border-gray-600 bg-white bg-opacity-80 dark:bg-gray-800 dark:bg-opacity-80 backdrop-blur-sm hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 focus:ring-gray-500;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Botão com gradiente animado */
+  .btn-gradient-animated {
+    @apply bg-gradient-to-r from-primary-500 via-secondary-500 to-primary-500 bg-size-200;
+    animation: gradient-shift 3s ease infinite;
+  }
+
+  .btn-sm {
+    @apply px-4 py-2 text-sm;
+  }
+
+  .btn-lg {
+    @apply px-8 py-4 text-lg;
+  }
+
+  .card {
+    @apply bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    @apply shadow-xl;
+    transform: translateY(-5px);
+  }
+  
+  /* Card com efeito de brilho */
+  .card-glow {
+    @apply relative overflow-hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .card-glow::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-primary-500 to-secondary-500 opacity-0 rounded-xl;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+  
+  .card-glow:hover {
+    transform: translateY(-5px);
+  }
+  
+  .card-glow:hover::before {
+    @apply opacity-10;
+    animation: pulse-glow 2s infinite;
+  }
+  
+  /* Card com efeito 3D */
+  .card-3d {
+    @apply relative;
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+  }
+  
+  .card-3d:hover {
+    transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
+  }
+
+  .form-input {
+    @apply w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500;
+    transition: all 0.2s ease;
+  }
+  
+  .form-input:focus {
+    transform: translateY(-2px);
+    @apply shadow-md;
+  }
+  
+  /* Input com efeito de borda animada */
+  .form-input-animated {
+    @apply border-2 border-gray-300 dark:border-gray-700;
+    transition: all 0.3s ease;
+  }
+  
+  .form-input-animated:focus {
+    @apply border-primary-500 dark:border-primary-500;
+    animation: border-pulse 2s infinite;
+  }
+
+  .form-label {
+    @apply block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300;
+  }
+
+  .form-error {
+    @apply mt-1 text-sm text-red-600 dark:text-red-400;
+  }
+
+  /* Classes de animação */
+  .animate-float-slow {
+    animation: float-slow 6s ease-in-out infinite;
+  }
+  
+  .animate-float-medium {
+    animation: float-medium 5s ease-in-out infinite;
+  }
+  
+  .animate-float-fast {
+    animation: float-fast 4s ease-in-out infinite;
+  }
+  
+  .animate-spin-slow {
+    animation: spin-slow 15s linear infinite;
+  }
+  
+  .animate-fade-in {
+    animation: fade-in 0.8s ease-out forwards;
+  }
+  
+  .animate-slide-up {
+    animation: slide-up 0.8s ease-out forwards;
+  }
+  
+  .animate-slide-in-right {
+    animation: slide-in-right 0.8s ease-out forwards;
+  }
+  
+  .animate-scale-in {
+    animation: scale-in 0.8s ease-out forwards;
+  }
+  
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 0)
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+  
+  /* Novas classes de animação */
+  .animate-bounce-slow {
+    animation: bounce-slow 2s ease-in-out infinite;
+  }
+  
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+  
+  .animate-gradient-shift {
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease infinite;
+  }
+  
+  .animate-ripple {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .animate-ripple::after {
+    content: '';
+    @apply absolute inset-0 bg-white rounded-full scale-0 opacity-30;
+    transform-origin: center;
+    animation: ripple 1s ease-out;
+  }
+  
+  .animate-text-blur {
+    animation: text-blur-out 3s ease-in-out infinite;
+  }
+  
+  .animate-border-pulse {
+    animation: border-pulse 2s infinite;
+  }
+  
+  .animate-rotate-3d {
+    animation: rotate-3d 10s linear infinite;
+  }
+  
+  /* Utilitários de tamanho de background */
+  .bg-size-200 {
+    background-size: 200% 100%;
+  }
+
+  /* Estilos específicos para o formulário de contato */
+  .contact-form-container {
+    @apply relative z-10 -mt-24 md:-mt-32 mx-auto max-w-5xl;
+  }
+
+  .contact-form {
+    @apply bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border-t-8 border-primary-600 dark:border-primary-500 p-6 md:p-8;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
+    transform: translateY(0);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    animation: pulse-border 2s infinite;
+  }
+
+  @keyframes pulse-border {
+    0% {
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05), 0 0 0 0 rgba(14, 165, 233, 0.7);
+    }
+    70% {
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05), 0 0 0 10px rgba(14, 165, 233, 0);
+    }
+    100% {
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05), 0 0 0 0 rgba(14, 165, 233, 0);
+    }
+  }
+
+  .contact-form:hover {
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.05);
+    transform: translateY(-5px);
+  }
+
+  .contact-form-success {
+    @apply bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 text-center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
+    animation: scale-in 0.5s ease-out forwards;
+  }
+
+  .contact-form-heading {
+    @apply text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white;
+    background: linear-gradient(to right, var(--primary-600), var(--secondary-600));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .contact-form-badge {
+    @apply inline-block px-4 py-2 rounded-full bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-300 text-base font-medium mb-3;
+  }
+
+  .contact-form-step-indicator {
+    @apply flex items-center justify-center mb-6;
+  }
+
+  .contact-form-step {
+    @apply w-14 h-14 rounded-full flex items-center justify-center text-lg font-semibold;
+    transition: all 0.3s ease;
+  }
+
+  .contact-form-step-active {
+    @apply bg-primary-100 border-2 border-primary-600 text-primary-600;
+    transform: scale(1.1);
+    animation: pulse 2s infinite;
+  }
+
+  .contact-form-step-completed {
+    @apply bg-primary-600 text-white;
+  }
+
+  .contact-form-step-pending {
+    @apply bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-400;
+  }
+
+  .contact-form-step-line {
+    @apply w-16 h-1.5;
+    transition: background-color 0.3s ease;
+  }
+
+  .contact-form-step-line-active {
+    @apply bg-primary-600;
+  }
+
+  .contact-form-step-line-pending {
+    @apply bg-gray-300 dark:bg-gray-600;
+  }
+
+  .contact-form-input {
+    @apply w-full px-4 py-4 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-lg;
+    transition: all 0.2s ease;
+  }
+
+  .contact-form-input:focus {
+    @apply transform scale-[1.01] shadow-md;
+  }
+
+  .contact-form-input-error {
+    @apply border-red-500 dark:border-red-400;
+  }
+
+  .contact-form-error-message {
+    @apply mt-2 text-sm text-red-600 dark:text-red-400;
+    animation: fade-in 0.3s ease-out forwards;
+  }
+
+  .contact-form-submit-button {
+    @apply btn px-10 py-5 text-xl font-bold hover:scale-105 transition-transform;
+    background: linear-gradient(to right, var(--primary-600), var(--secondary-600));
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(14, 165, 233, 0.3);
+  }
+
+  .contact-form-submit-button::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      to bottom right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(45deg);
+    animation: shimmer 3s infinite;
+  }
+  
+  /* Efeitos de texto */
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent;
+  }
+  
+  .text-gradient-animated {
+    @apply bg-gradient-to-r from-primary-500 via-secondary-500 to-primary-500 bg-clip-text text-transparent bg-size-200;
+    animation: gradient-shift 3s ease infinite;
+  }
+  
+  .text-shadow-glow {
+    text-shadow: 0 0 10px rgba(14, 165, 233, 0.5), 0 0 20px rgba(14, 165, 233, 0.3);
+  }
+  
+  /* Efeitos de borda */
+  .border-gradient {
+    border: 2px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to right, var(--primary-500), var(--secondary-500));
+  }
+  
+  .border-gradient-animated {
+    border: 2px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to right, var(--primary-500), var(--secondary-500), var(--primary-500));
+    background-size: 200% 100%;
+    animation: gradient-shift 3s ease infinite;
+  }
+  
+  /* Efeitos de glassmorphism */
+  .glass {
+    @apply bg-white bg-opacity-10 backdrop-blur-lg border border-white border-opacity-20 shadow-lg;
+  }
+  
+  .glass-dark {
+    @apply bg-gray-900 bg-opacity-10 backdrop-blur-lg border border-gray-800 border-opacity-20 shadow-lg;
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-in-out;
+  }
+
+  .animate-slide-down {
+    animation: slideDown 0.5s ease-in-out;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.5s ease-in-out;
+  }
+
+  .animate-slide-in-left {
+    animation: slideInLeft 0.5s ease-in-out;
+  }
+
+  .gradient-text {
+    background: linear-gradient(to right, var(--primary-600), var(--secondary-600));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Animações Neurais */
+.neural-node {
+  @apply absolute rounded-full bg-primary-500 animate-neural-pulse;
+}
+
+.neural-connection {
+  @apply absolute bg-gradient-to-r from-primary-500 to-secondary-500 animate-neural-path;
+}
+
+.neural-glow {
+  @apply absolute rounded-full bg-primary-400 bg-opacity-30 animate-neural-glow;
+}
+
+.neural-spark {
+  @apply absolute rounded-full bg-white animate-neural-spark;
+}
+
+.neural-wave {
+  @apply absolute bg-gradient-to-r from-primary-500 via-secondary-500 to-primary-500 bg-opacity-20 animate-neural-wave;
+}
+
+/* Efeitos de hover para elementos neurais */
+.neural-card {
+  @apply relative overflow-hidden transition-all duration-300;
+}
+
+.neural-card:hover .neural-node {
+  @apply animate-neural-pulse;
+}
+
+.neural-card:hover .neural-connection {
+  @apply animate-neural-path;
+}
+
+.neural-card:hover .neural-glow {
+  @apply animate-neural-glow;
+}
+
+.neural-card:hover .neural-spark {
+  @apply animate-neural-spark;
+}
+
+.neural-card:hover .neural-wave {
+  @apply animate-neural-wave;
+}
+
+/* Efeitos de gradiente para texto e botões */
+.neural-gradient-text {
+  @apply bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent;
+}
+
+.neural-gradient-bg {
+  @apply bg-gradient-to-r from-primary-500 to-secondary-500;
+}
+
+.neural-gradient-border {
+  @apply border-2 border-transparent bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-border;
+}
+
+/* Efeitos de sombra para elementos neurais */
+.neural-shadow {
+  @apply shadow-lg hover:shadow-xl transition-shadow duration-300;
+}
+
+.neural-shadow-primary {
+  @apply shadow-primary-lg hover:shadow-primary-xl transition-shadow duration-300;
+}
+
+.neural-shadow-secondary {
+  @apply shadow-secondary-lg hover:shadow-secondary-xl transition-shadow duration-300;
+} 
